@@ -12,28 +12,24 @@
     "baseUrl": "",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-        "esModuleInterop": true,
-        "noErrorTruncation": true,
-        "typeRoots": [
-          "./node_modules/@types"
-        ],
-        "paths": {
-          "@configs/*": ["./src/configs/*"],
-          "@modules/*": ["./src/modules/*"],
-          "@shared/*": ["./src/shared/*"],
-          "@/*": ["./src/*"],
-        }
-      },
-      "exclude": [
-        "node_modules",
-        "test",
-        "dist"
-      ]
-    }
+    "strict": true,
+    "esModuleInterop": true,
+    "noErrorTruncation": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "paths": {
+        "@configs/*": ["./src/configs/*"],
+        "@modules/*": ["./src/modules/*"],
+        "@shared/*": ["./src/shared/*"],
+        "@/*": ["./src/*"],
+      }
+    },
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist"
+  ]
+}
     
   

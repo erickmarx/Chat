@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 
-export interface IPersistUser {
+export interface IPersistUserService {
   persist: (
     username: string,
     password: string,

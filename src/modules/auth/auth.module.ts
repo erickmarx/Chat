@@ -10,8 +10,10 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { JwtStrategy } from './jwt.strategy';
 import { GetUserService } from './services/get-user.service';
 import { HashPasswordService } from './services/hash-password.service';
+import { JwtSignService } from './services/jwt-sign.service';
+import { JwtVerifyService } from './services/jwt-verify.service';
 import { LoginService } from './services/login.service';
-import { PersistUser } from './services/persist-user.service';
+import { PersistUserService } from './services/persist-user.service';
 
 @Module({
   imports: [
@@ -32,7 +34,9 @@ import { PersistUser } from './services/persist-user.service';
     { provide: AuthServices.HashPassword, useClass: HashPasswordService },
     { provide: AuthServices.Login, useClass: LoginService },
     { provide: AuthServices.GetUser, useClass: GetUserService },
-    { provide: AuthServices.PersistUser, useClass: PersistUser },
+    { provide: AuthServices.PersistUser, useClass: PersistUserService },
+    { provide: AuthServices.JwtSign, useClass: JwtSignService },
+    { provide: AuthServices.JwtVerify, useClass: JwtVerifyService },
   ],
 })
 export class AuthModule {}

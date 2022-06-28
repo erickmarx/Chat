@@ -18,10 +18,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ username }: { username: string }) {
-    const user = await this.getUserService.getWithoutPassword(username);
-    if (!user) {
+    try {
+      return await this.getUserService.getWithoutPassword(username);
+    } catch (error) {
       throw new UnauthorizedException();
     }
-    return user;
   }
 }

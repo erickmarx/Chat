@@ -7,11 +7,13 @@ import { IGetUserService } from '../interface/get-user.service.interface';
 export class GetUserService implements IGetUserService {
   constructor(private prismaService: PrismaService) {}
   async getWithPassword(username: string): Promise<User> {
-    return await this.prismaService.user.findFirst({ where: { username } });
+    return await this.prismaService.user.findUniqueOrThrow({
+      where: { username },
+    });
   }
 
   async getWithoutPassword(username: string): Promise<Omit<User, 'password'>> {
-    return await this.prismaService.user.findFirst({
+    return await this.prismaService.user.findUniqueOrThrow({
       where: { username },
       select: { id: true, username: true },
     });

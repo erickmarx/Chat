@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { json, urlencoded } from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { NotFoundExceptionFilter } from './filters/not-found-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +16,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   await app.listen(3000);
 }
 bootstrap();

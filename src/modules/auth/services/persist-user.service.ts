@@ -1,7 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { IPersistUser } from '../interface/persist-user.interface';
+import { IPersistUserService } from '../interface/persist-user.interface';
 import { PrismaService } from './../../../prisma/prisma.service';
-export class PersistUser implements IPersistUser {
+
+@Injectable()
+export class PersistUserService implements IPersistUserService {
   constructor(private prismaService: PrismaService) {}
   async persist(
     username: string,
