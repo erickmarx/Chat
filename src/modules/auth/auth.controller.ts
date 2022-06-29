@@ -38,11 +38,15 @@ export class AuthController implements IAuthController {
   @Public()
   @Post('register')
   async register(@Body() body: RegisterDTO): Promise<JwtSignType> {
-    const hashedPassword = await this.hashPasswordService.hash(body.password);
-    const user = await this.persistUserService.persist(
-      body.username,
-      hashedPassword,
-    );
-    return this.jwtSignService.sign(user);
+    try {
+      const hashedPassword = await this.hashPasswordService.hash(body.password);
+      const user = await this.persistUserService.persist(
+        body.username,
+        hashedPassword,
+      );
+      return this.jwtSignService.sign(user);
+    } catch (err) {
+      throw err;
+    }
   }
 }

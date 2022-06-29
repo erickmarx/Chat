@@ -5,18 +5,21 @@ import { json, urlencoded } from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import { NotFoundExceptionFilter } from './filters/not-found-exception.filter';
+import { PrismaClientKnownRequestErrorExceptionFilter } from './filters/prisma-client-known-request-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ limit: '50mb', extended: true }));
   app.use(helmet());
   app.use(rateLimit({ windowMs: 60, max: 50 }));
-
   app.useGlobalPipes(new ValidationPipe());
   // app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalFilters(new NotFoundExceptionFilter());
+  app.useGlobalFilters(
+    new NotFoundExceptionFilter(),
+    new PrismaClientKnownRequestErrorExceptionFilter(),
+  );
   await app.listen(3000);
 }
 bootstrap();
