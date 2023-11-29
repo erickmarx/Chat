@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # app:
+  #   container_name: app
+  #   build: .
+  #   environment:
+  #     - NODE_ENV=production
+  #   restart: 'on-failure'
+  #   volumes:
+  #     - ./data/app:/root/app
+
+  #   ports:
+  #     - '8000:8000'
+  #   depends_on:
+  #     - redis
+  #   links:
+  #     - redis
+  #   networks:
+  #     - app-network
+
+  redis:
+    container_name: redis_cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - mongo:/data/mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - app-network
+
+volumes:
+  redis:
+  mongo:
+
+networks:
+  app-network:
+    driver: bridge
